@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Forum.Models
 {
@@ -25,7 +23,7 @@ namespace Forum.Models
         [Display(Name = "Topic owner")]
         public User User { get; set; }
         [Required]
-        [Display(Name = "Last modification")]
+        [Display(Name = "Modification")]
         public DateTime CreationDate { get; set; }
         [Required]
         [Display(Name = "Active")]

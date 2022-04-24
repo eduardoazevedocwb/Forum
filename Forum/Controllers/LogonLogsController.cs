@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,24 +20,21 @@ namespace Forum.Controllers
         public async Task<IActionResult> Index()
         {
             var forumContext = _context.LogonLogs.Include(l => l.User);
-            return View(await forumContext.ToListAsync());
+            return View(await forumContext.OrderByDescending(a=> a.Date).ToListAsync());
         }
 
         // GET: LogonLogs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var logonLog = await _context.LogonLogs
                 .Include(l => l.User)
                 .FirstOrDefaultAsync(m => m.LogonLogId == id);
+
             if (logonLog == null)
-            {
                 return NotFound();
-            }
 
             return View(logonLog);
         }
@@ -52,8 +47,6 @@ namespace Forum.Controllers
         }
 
         // POST: LogonLogs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("LogonLogId,UserId,Action,Date,LogData")] LogonLog logonLog)
@@ -72,30 +65,23 @@ namespace Forum.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var logonLog = await _context.LogonLogs.FindAsync(id);
             if (logonLog == null)
-            {
                 return NotFound();
-            }
+
             ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Name", logonLog.UserId);
             return View(logonLog);
         }
 
         // POST: LogonLogs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("LogonLogId,UserId,Action,Date,LogData")] LogonLog logonLog)
         {
             if (id != logonLog.LogonLogId)
-            {
                 return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
@@ -107,13 +93,9 @@ namespace Forum.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!LogonLogExists(logonLog.LogonLogId))
-                    {
                         return NotFound();
-                    }
                     else
-                    {
                         throw;
-                    }
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -125,17 +107,13 @@ namespace Forum.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var logonLog = await _context.LogonLogs
                 .Include(l => l.User)
                 .FirstOrDefaultAsync(m => m.LogonLogId == id);
             if (logonLog == null)
-            {
                 return NotFound();
-            }
 
             return View(logonLog);
         }

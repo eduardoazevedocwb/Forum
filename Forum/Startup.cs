@@ -25,7 +25,8 @@ namespace Forum
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ForumContext>(opt => opt.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ForumDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+            var connectionString = Configuration.GetConnectionString("db1");
+            services.AddDbContext<ForumContext>(opt => opt.UseSqlServer(connectionString));
 
             services.AddDistributedMemoryCache();
             services.AddSession(options =>

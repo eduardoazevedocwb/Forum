@@ -1,11 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Forum.Models;
-using System.Text.Json;
 
 namespace Forum.Controllers
 {
@@ -22,7 +20,7 @@ namespace Forum.Controllers
         public async Task<IActionResult> Index()
         {
             var forumContext = _context.TopicLogs.Include(t => t.Topic);
-            return View(await forumContext.ToListAsync());
+            return View(await forumContext.OrderByDescending(a => a.Date).ToListAsync());
         }
 
         // GET: TopicLogs/Details/5

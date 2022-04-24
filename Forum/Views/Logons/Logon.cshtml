@@ -1,14 +1,14 @@
 ﻿@model Forum.Models.Logon
 
 @{
-    ViewData["Title"] = "Logon";
+    ViewData["Title"] = "User login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>User Login</h1>
-
+<h1>@ViewData["Title"]</h1>
 <h5 style="font-size: medium;">Please login to have privileged access to yours topics.</h5>
 <hr />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-controller="Logons" asp-action="Logon">

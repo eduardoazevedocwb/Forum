@@ -1,0 +1,37 @@
+﻿@model Forum.Models.Logon
+
+@using (Html.BeginForm("Logon", "Logons"))
+{
+    @Html.ValidationSummary(true, "Login failed. Check your login details.");
+    <div style="padding:20px 10px 20px 10px">
+        <fieldset>
+            <div class="row">
+                <div class="col-12 col-sm-4 col-md-4" style="max-height: 35px;">
+                    <label for="staticEmail" class="col-sm-2 col-form-label nav-link text-dark">
+                        @Html.LabelFor(u => u.User)
+                    </label>
+                </div>
+                <div class="col-12 col-sm-8 col-md-8" style="max-height: 35px;">
+                    @Html.TextBoxFor(u => u.User, new { @class = "form-control form-control-sm"})
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-4 col-md-4" style="max-height: 35px;">
+                    <label for="inputPassword" class="col-sm-2 col-form-label nav-link text-dark">
+                        @Html.LabelFor(u => u.Password)
+                    </label>
+                </div>
+                <div class="col-12 col-sm-8 col-md-8" style="max-height: 35px;">
+                    @Html.TextBoxFor(u => u.Password, new { @class = "form-control form-control-sm", @type = "password" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12" style="text-align:end">
+                    <button type="submit" class="btn btn-primary btn-sm" asp-controller="Users" asp-action="Create">New User</button>
+                    <input type="submit" class="btn btn-primary btn-sm" value="Logon" />
+                </div>
+            </div>
+        </fieldset>
+    </div>
+}
+                    

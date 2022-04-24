@@ -1,0 +1,19 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>Login failed</h1>
+<hr />
+<h5 style="font-size: medium; margin-bottom: 10px; margin-top:40px">Unfortunately, your login failed. This can happen from many reasons, follow some of them:</h5>
+<h5 style="font-size: medium; margin-bottom: 10px">* Digit of some letter or number wrong on Login or Password</h5>
+<h5 style="font-size: medium; margin-bottom: 10px">* Be inativated for some specific reason, in this case, you can create a new user again</h5>
+<h5 style="font-size: medium; margin-bottom: 10px">* The login and password aren't case sensitive, so if you was thinking about this possibility, you can go to the next one</h5>
+<h5 style="font-size: medium; margin-bottom: 40px">* One possibility, is that you had password changed, for some reason of from someone, this is a common process of security</h5>
+
+<div>
+    <a asp-controller="Logons" asp-action="Index">Try to login again</a>
+</div>
+<div>
+    <a asp-controller="Topics" asp-action="Index">Back to topic list</a>
+</div>

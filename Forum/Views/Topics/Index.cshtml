@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Forum.Models.Topic>
+
+@{
+    ViewData["Title"] = "Topics";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h5 style="font-size: medium;">Here you can see the topics that we've been registering. Feel free to log in and create your own topic.</h5>
+
+<p style=" float:right; margin-top:40px">
+    <a asp-action="Create">Create new topic</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Active)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td style= "word-wrap:break-word; font-size: small;">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Active)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.TopicId">Edit</a><br />
+                    <a asp-action="Details" asp-route-id="@item.TopicId">Details</a><br />
+                    <a asp-action="Delete" asp-route-id="@item.TopicId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

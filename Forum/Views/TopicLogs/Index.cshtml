@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Forum.Models.TopicLog>
+
+@{
+    ViewData["Title"] = "Topics registrations";
+}
+
+<h1>@ViewData["Title"]</h1>
+<h5 style="font-size: medium;">Here we have the registration about all created, edited and also deleted topics.</h5>
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+
+<table style="margin-top:80px" class="table">
+    <thead>
+        <tr class="row">
+            <th class="col-12 col-sm-2 col-md-2">
+                @Html.DisplayNameFor(model => model.Topic)
+            </th>
+            <th class="col-12 col-sm-1 col-md-1">
+                @Html.DisplayNameFor(model => model.Action)
+            </th>
+            <th class="col-12 col-sm-2 col-md-2">
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th class="col-12 col-sm-6 col-md-6" >
+                @Html.DisplayNameFor(model => model.LogData)
+            </th>
+            <th class="col-12 col-sm-1 col-md-1"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="row">
+                <td class="col-12 col-sm-2 col-md-2">
+                    @Html.DisplayFor(modelItem => item.Topic.Title)
+                </td>
+                <td class="col-12 col-sm-1 col-md-1">
+                    @Html.DisplayFor(modelItem => item.Action)
+                </td>
+                <td class="col-12 col-sm-2 col-md-2">
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td class="col-12 col-sm-6 col-md-6" style="word-wrap:break-word; font-size:small">
+                    @Html.DisplayFor(modelItem => item.LogData)
+                </td>
+                <td class="col-12 col-sm-1 col-md-1">
+                    @*<a asp-action="Edit" asp-route-id="@item.TopicLogId">Edit</a>*@ 
+                    <a asp-action="Details" asp-route-id="@item.TopicLogId">Details</a>
+                    @*<a asp-action="Delete" asp-route-id="@item.TopicLogId">Delete</a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

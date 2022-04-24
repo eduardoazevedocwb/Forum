@@ -1,0 +1,49 @@
+﻿@model Forum.Models.Topic
+
+@{
+    ViewData["Title"] = "Details selected topic";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h5 style="font-size: medium;">Here you can consult the content of the topic. You can also click on Edit topic if you have already logged on.</h5>
+<hr />
+
+<div>
+    <dl class="row" style="margin-top:40px; margin-bottom:40px;">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.UserId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.TopicId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

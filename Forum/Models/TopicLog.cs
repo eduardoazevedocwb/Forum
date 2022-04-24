@@ -15,7 +15,6 @@ namespace Forum.Models
         [Required]
         [Display(Name = "TopicId")]
         public int TopicId { get; set; }
-        [Required]
         [Display(Name = "Topic")]
         public Topic Topic { get; set; }
         [Required]

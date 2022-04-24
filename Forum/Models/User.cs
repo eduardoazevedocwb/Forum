@@ -22,5 +22,7 @@ namespace Forum.Models
         [Required]
         [Display(Name = "Active")]
         public bool Active { get; set; }
+        [Display(Name = "Deleted")]
+        public bool? Deleted { get; set; }
     }
 }

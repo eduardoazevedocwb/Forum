@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Forum.Models;
+using System;
 
 namespace Forum.Controllers
 {
@@ -18,7 +19,7 @@ namespace Forum.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.OrderBy(a => a.Name).ToListAsync());
+            return View(await _context.Users.Where(a=> a.Deleted != true).OrderBy(a => a.Name).ToListAsync());
         }
 
         // GET: Users/Details/5
@@ -131,10 +132,23 @@ namespace Forum.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var register = await _context.Users.FindAsync(id);
+                if (register != null)
+                {
+                    register.Deleted = true;
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                    return NotFound();
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"{ex.Message} | {ex.InnerException.Message}");
+            }
         }
 
         private bool UserExists(int id)

@@ -23,7 +23,7 @@ namespace Forum.Controllers
         public async Task<IActionResult> Index()
         {
             var forumContext = _context.Topics.Include(t => t.User);
-            return View(await forumContext.OrderByDescending(a => a.CreationDate).ToListAsync());
+            return View(await forumContext.Where(a=> a.Deleted != true).OrderByDescending(a => a.CreationDate).ToListAsync());
         }
 
         // GET: Topics/Details/5
@@ -83,8 +83,13 @@ namespace Forum.Controllers
 
                     var item = _context.Add(topic);
 
-                    await _context.SaveChangesAsync();
-                    await PushTopicLog(topic);
+                    var changes = await _context.SaveChangesAsync();
+
+                    if(changes > 0)
+                    {
+                        var newTopic = topic;
+                        await PushTopicLog(newTopic,"POST");
+                    }
 
                     return RedirectToAction(nameof(Index));
                 }
@@ -146,7 +151,7 @@ namespace Forum.Controllers
                         if( changes > 0 )
                         {
                             var newItem = register;
-                            await PushTopicLog(newItem);
+                            await PushTopicLog(newItem, "PUT");
                         }
                     }
                     else
@@ -193,15 +198,23 @@ namespace Forum.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var topic = await _context.Topics.FindAsync(id);
-
             try
             {
-                _context.Topics.Remove(topic);
-                await _context.SaveChangesAsync();
-                await PushTopicLog(topic);
+                var register = await _context.Topics.FindAsync(id);
+                if (register != null)
+                {
+                    register.Deleted = true;
+                    var changes = await _context.SaveChangesAsync();
+                    if (changes > 0)
+                    {
+                        var newItem = register;
+                        await PushTopicLog(newItem, "DELETE");
+                    }
 
-                return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                    return NotFound();
 
             }
             catch (Exception ex)
@@ -215,14 +228,14 @@ namespace Forum.Controllers
             return _context.Topics.Any(e => e.TopicId == id);
         }
 
-        private async Task PushTopicLog(Topic topic)
+        private async Task PushTopicLog(Topic topic, string op)
         {
             var newLog = new TopicLog()
             {
                 Topic = topic,
                 TopicId = topic.TopicId,
                 Date = DateTime.Now,
-                Action = "PUSH",
+                Action = op,
                 LogData = JsonSerializer.Serialize(topic),
             };
             var logsController = new TopicLogsController(_context);

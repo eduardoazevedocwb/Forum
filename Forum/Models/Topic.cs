@@ -18,6 +18,7 @@ namespace Forum.Models
         [Required]
         [Display(Name = "Description")]
         public string Description { get; set; }
+        [Required]
         [Display(Name = "User")]
         public int UserId { get; set; }
         [Display(Name = "Topic owner")]
@@ -25,8 +26,9 @@ namespace Forum.Models
         [Required]
         [Display(Name = "Modification")]
         public DateTime CreationDate { get; set; }
-        [Required]
         [Display(Name = "Active")]
         public bool Active { get; set; }
+        [Display(Name = "Deleted")]
+        public bool? Deleted { get; set; }
     }
 }

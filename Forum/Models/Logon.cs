@@ -7,6 +7,7 @@ namespace Forum.Models
     public class Logon
     {
         [Key]
+        [Required]
         public int id { get; set; }
 
         [Required]

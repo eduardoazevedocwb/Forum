@@ -14,7 +14,6 @@ namespace Forum.Models
         [Required]
         [Display(Name = "UserId")]
         public int UserId { get; set; }
-        [Required]
         [Display(Name = "User name")]
         public User User { get; set; }
         [Required]

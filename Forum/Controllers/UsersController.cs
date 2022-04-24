@@ -18,7 +18,7 @@ namespace Forum.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            return View(await _context.Users.OrderBy(a => a.Name).ToListAsync());
         }
 
         // GET: Users/Details/5

@@ -3,11 +3,11 @@
 @using (Html.BeginForm("Logon", "Logons"))
 {
     @Html.ValidationSummary(true, "Login failed. Check your login details.");
-    <div style="padding:20px 10px 20px 10px">
+    <div style="padding:10px 0px 10px 0px">
         <fieldset>
             <div class="row">
                 <div class="col-12 col-sm-4 col-md-4" style="max-height: 35px;">
-                    <label for="staticEmail" class="col-sm-2 col-form-label nav-link text-dark">
+                    <label for="staticEmail" class="col-sm-2 col-form-label nav-link text-dark" style="color: lightgray !important;">
                         @Html.LabelFor(u => u.User)
                     </label>
                 </div>
@@ -17,7 +17,7 @@
             </div>
             <div class="row">
                 <div class="col-12 col-sm-4 col-md-4" style="max-height: 35px;">
-                    <label for="inputPassword" class="col-sm-2 col-form-label nav-link text-dark">
+                    <label for="inputPassword" class="col-sm-2 col-form-label nav-link text-dark" style="color: lightgray !important;">
                         @Html.LabelFor(u => u.Password)
                     </label>
                 </div>
@@ -26,9 +26,9 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 col-sm-12 col-md-12" style="text-align:end">
-                    <button type="submit" class="btn btn-primary btn-sm" asp-controller="Users" asp-action="Create">New User</button>
-                    <input type="submit" class="btn btn-primary btn-sm" value="Logon" />
+                <div class="col-12 col-sm-12 col-md-12" style="text-align:end; margin-top:5px;">
+                    <button type="submit" class="btn btn-light btn-sm" asp-controller="Users" asp-action="Create">New User</button>
+                    <input type="submit" class="btn btn-info btn-sm" value="Logon" />
                 </div>
             </div>
         </fieldset>

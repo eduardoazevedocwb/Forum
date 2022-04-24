@@ -23,7 +23,7 @@ namespace Forum.Controllers
         public async Task<IActionResult> Index()
         {
             var forumContext = _context.Topics.Include(t => t.User);
-            return View(await forumContext.ToListAsync());
+            return View(await forumContext.OrderByDescending(a => a.CreationDate).ToListAsync());
         }
 
         // GET: Topics/Details/5

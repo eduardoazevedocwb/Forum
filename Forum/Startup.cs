@@ -25,8 +25,17 @@ namespace Forum
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = Configuration.GetConnectionString("db1");
-            services.AddDbContext<ForumContext>(opt => opt.UseSqlServer(connectionString));
+            //SQL
+            //var connection = Configuration.GetConnectionString("dbSql");
+            //services.AddDbContext<ForumContext>(opt => opt.UseSqlServer(connection));
+
+            //MYSQL
+            services.AddDbContextPool<ForumContext>(opt =>
+            {
+                var connection = Configuration.GetConnectionString("dbMysql");
+                opt.UseMySql(connection, ServerVersion.AutoDetect(connection));
+
+            });
 
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
